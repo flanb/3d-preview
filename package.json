@@ -106,8 +106,10 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
+    "@tweakpane/core": "^2.0.4",
     "@vscode/vsce": "^2.24.0",
     "three": "^0.161.0",
-    "tweakpane": "^4.0.3"
+    "tweakpane": "^4.0.3",
+    "tweakpane-plugin-media": "^1.0.3"
   }
 }

@@ -19,9 +19,13 @@ import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
 
 import { Pane } from "tweakpane";
+import * as TweakpanePluginMedia from 'tweakpane-plugin-media'
 
 import type { WebviewApi } from "vscode-webview";
 import { APPLICATION_CONSTANTS, MODEL_TYPES } from "../constants.js";
+
+//@ts-ignore
+import addObjectDebug from "./utils/addObjectDebug.js";
 
 // @ts-ignore
 const vscode: WebviewApi<unknown> = acquireVsCodeApi();
@@ -50,7 +54,8 @@ gltfLoader.setDRACOLoader(dracoLoader);
 
 const fbxLoader = new FBXLoader(loadingManager);
 
-const pane = new Pane() as any;
+const pane = new Pane();
+pane.registerPlugin(TweakpanePluginMedia);
 
 const environmentFolder = pane.addFolder({
   title: "Environment",
@@ -193,6 +198,7 @@ window.addEventListener("message", async (event) => {
       model = gltfModel.scene;
       scene.add(model);
       addAnimationsToFolder({ model: gltfModel, type });
+      addObjectDebug(modelFolder, model);
     }
     overlay.style.opacity = "0";
     overlay.style.pointerEvents = "none";
